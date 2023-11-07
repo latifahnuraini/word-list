@@ -1,1 +1,0 @@
-web : gunicoorn wsgi:app
