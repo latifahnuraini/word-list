@@ -11,13 +11,21 @@ import requests
 from datetime import datetime
 from bson import ObjectId
 
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+MONGODB_URI = os.environ.get("MONGODB_URI")
+DB_NAME =  os.environ.get("DB_NAME")
+
+client = MongoClient(MONGODB_URI)
+
+db = client[DB_NAME]
+
 app=Flask(__name__)
-
-password = 'sparta'
-cxn_str = f'mongodb://dbSparta:{password}@ac-jogqom4-shard-00-00.nxpggyv.mongodb.net:27017,ac-jogqom4-shard-00-01.nxpggyv.mongodb.net:27017,ac-jogqom4-shard-00-02.nxpggyv.mongodb.net:27017/?ssl=true&replicaSet=atlas-kenrbr-shard-0&authSource=admin&retryWrites=true&w=majority'
-client = MongoClient(cxn_str)
-
-db = client.tugas
 
 @app.route('/')
 def main():
